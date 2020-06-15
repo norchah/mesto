@@ -1,0 +1,18 @@
+.btn__edit {
+  background-image: url('../../../images/btn/__edit.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 24px;
+  height: 24px;
+  align-self: end;
+  margin-bottom: 13px;
+}
+
+@media screen and (max-width: 370px) {
+  .btn__edit {
+    width: 18px;
+    height: 18px;
+    margin-bottom: 5px;
+    justify-self: center;
+  }
+}

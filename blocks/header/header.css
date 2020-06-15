@@ -1,0 +1,8 @@
+@import url('./__bottom-border/header__bottom-border.css');
+
+.header {
+  margin: 45px auto 0;
+  max-width: 882px;
+  display: flex;
+  justify-content: space-between;
+}

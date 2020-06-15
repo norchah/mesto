@@ -1,0 +1,5 @@
+.element__discription {
+  padding: 0 17px 0 21px;
+  display: flex;
+  justify-content: space-between;
+}
