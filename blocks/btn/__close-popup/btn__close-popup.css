@@ -25,6 +25,12 @@
 
 @media screen and (max-width: 438px) {
   .btn__close-popup {
-    top: -368px;
+    top: -369px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .btn__close-popup {
+    top: -359px;
   }
 }
