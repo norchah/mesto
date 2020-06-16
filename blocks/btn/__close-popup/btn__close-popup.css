@@ -7,8 +7,9 @@
   border: none;
   position: relative;
   top: -340px;
-  right: -430px;
+  left: calc(100% - 1px);
   transition: opacity .2s;
+  margin-right: 1px;
 }
 
 .btn__close-popup:hover {
@@ -16,10 +17,9 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 510px) {
+@media screen and (max-width: 505px) {
   .btn__close-popup {
-    right: -190px;
-    top: -340px;
+    left: calc(100% - 40px);
   }
 }
 
