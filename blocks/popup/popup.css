@@ -1,0 +1,14 @@
+@import url('./__container/popup__container.css');
+@import url('./__fieldset/popup__fieldset.css');
+@import url('./_closed/popup_closed.css');
+
+
+.popup {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgb(0 0 0 / .5);
+  top: 0px;
+  left: 0px;
+  color: black;
+}
