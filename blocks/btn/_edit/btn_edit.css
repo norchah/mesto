@@ -1,5 +1,5 @@
-.btn__edit {
-  background-image: url('../../../images/btn/__edit.svg');
+.btn_edit {
+  background-image: url('../../../images/btn/_edit.svg');
   background-repeat: no-repeat;
   background-position: center;
   width: 24px;
@@ -9,7 +9,7 @@
 }
 
 @media screen and (max-width: 370px) {
-  .btn__edit {
+  .btn_edit {
     width: 18px;
     height: 18px;
     margin-bottom: 5px;

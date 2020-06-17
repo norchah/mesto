@@ -1,8 +1,8 @@
-@import url('./__add/btn__add.css');
-@import url('./__edit/btn__edit.css');
-@import url('./__like/btn__like.css');
-@import url('./__send-form/btn__send-form.css');
-@import url('./__close-popup/btn__close-popup.css');
+@import url('./_add/btn_add.css');
+@import url('./_edit/btn_edit.css');
+@import url('./_like/btn_like.css');
+@import url('./_send-form/btn_send-form.css');
+@import url('./_close-popup/btn_close-popup.css');
 
 .btn {
   border: 1px solid white;

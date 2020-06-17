@@ -1,4 +1,4 @@
-.btn__send-form {
+.btn_send-form {
   background-color: black;
   color: white;
   width: 100%;
@@ -10,7 +10,7 @@
   transition: opacity .2s;
 }
 
-.btn__send-form:hover {
+.btn_send-form:hover {
   opacity: 0.8;
   cursor: pointer;
 }

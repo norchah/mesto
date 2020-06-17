@@ -3,7 +3,8 @@
   min-height: 330px;
   margin: 0 auto;
   position: relative;
-  top: 21vh;
+  top: 50%;
+  transform: translateY(-50%);
   background-color: white;
   border-radius: 10px;
 }

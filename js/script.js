@@ -1,6 +1,6 @@
-let btnEdit = document.querySelector('.btn__edit');
-let btnClose = document.querySelector('.btn__close-popup');
-let btnSend = document.querySelector('.btn__send-form');
+let btnEdit = document.querySelector('.btn_edit');
+let btnClose = document.querySelector('.btn_close-popup');
+let btnSend = document.querySelector('.btn_send-form');
 
 let popup = document.querySelector('.popup');
 

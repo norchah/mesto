@@ -1,6 +1,13 @@
-@import url('./__bottom-border/header__bottom-border.css');
-
 .header {
   margin: 45px auto 0;
   max-width: 882px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #545454;
+}
+
+@media screen and (max-width: 350px) {
+  .header {
+    padding-bottom: 32px;
+    margin-top: 28px;
+  }
 }

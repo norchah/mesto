@@ -1,5 +1,5 @@
-.btn__add {
-  background-image: url('../../../images/btn/__add.svg');
+.btn_add {
+  background-image: url('../../../images/btn/_add.svg');
   background-repeat: no-repeat;
   background-position: center;
   width: 150px;
@@ -9,7 +9,7 @@
 }
 
 @media screen and (max-width: 700px) {
-  .btn__add {
+  .btn_add {
     justify-self: center;
     width: 282px;
   }
@@ -17,7 +17,7 @@
 
 
 @media screen and (max-width: 370px) {
-  .btn__add {
+  .btn_add {
     width: 282px;
     margin: 0 auto ;
   }

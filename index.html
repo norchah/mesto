@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./pages/index.css">
-    <link rel="shortcut icon" href="/images/favicon/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="./images/favicon/favicon.ico" type="image/x-icon">
     <link rel="icon" href="./images/favicon/favicon.ico" type="image/x-icon">
     <title>Место: Россия... и не только 😅</title>
 </head>
@@ -21,10 +21,10 @@
           <img class="profile__avatar" src="./images/avatar/avatar.jpg" alt="Аватарка автора">
           <div class="profile__info">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
-            <button class="btn btn__edit"></button>
+            <button class="btn btn_edit"></button>
             <p class="profile__subtitle">Исследователь океана</p>
           </div>
-          <button class="btn btn__add"></button>
+          <button class="btn btn_add"></button>
         </section>
 
         <section class="elements">
@@ -33,57 +33,56 @@
               <img class="element__img" src="./images/elements/blue_hole.jpg" alt="Большая Голубая Дыра">
               <div class="element__discription">
                 <h2 class="element__title">Большая Голубая Дыра</h2>
-                <button class="btn btn__like"></button>
+                <button class="btn btn_like"></button>
               </div>
             </li>
             <li class="element">
               <img class="element__img" src="./images/elements/gibraltar.jpg" alt="Граница несмешиваемых вод в Гибралтарском проливе">
               <div class="element__discription">
                 <h2 class="element__title">Гибралтар</h2>
-                <button class="btn btn__like"></button>
+                <button class="btn btn_like"></button>
               </div>
             </li>
             <li class="element">
               <img class="element__img" src="./images/elements/red_kamchatka.jpg" alt="Красный прилив' на Камчатке">
               <div class="element__discription">
                 <h2 class="element__title">&laquo;Красный прилив&raquo;</h2>
-                <button class="btn btn__like"></button>
+                <button class="btn btn_like"></button>
               </div>
             </li>
             <li class="element">
               <img class="element__img" src="./images/elements/baykal.jpg" alt="Байкал">
               <div class="element__discription">
                 <h2 class="element__title">Байкал</h2>
-                <button class="btn btn__like"></button>
+                <button class="btn btn_like"></button>
               </div>
             </li>
             <li class="element">
               <img class="element__img" src="./images/elements/clypso.jpg" alt="Исследовательское судно Калипсо">
               <div class="element__discription">
                 <h2 class="element__title">&laquo;Калипсо&raquo;</h2>
-                <button class="btn btn__like"></button>
+                <button class="btn btn_like"></button>
               </div>
             </li>
             <li class="element">
               <img class="element__img" src="./images/elements/Alcyon.jpg" alt="Исследовательское судно Алсион">
               <div class="element__discription">
                 <h2 class="element__title">&laquo;Алсион&raquo;</h2>
-                <button class="btn btn__like"></button>
+                <button class="btn btn_like"></button>
               </div>
             </li>
           </ul>
         </section>
 
         <section class="popup popup_closed">
-          <div class="popup__container">
-
-            <form class="form" method="POST">
+          <div class="popup__container"> <!-- А я выравнивал так чтоб как в макете, почти перфетпиксель. И мимо головы прошло, что попап должен быть по центру -->
+            <form class="form" method="POST">  <!-- а решение с транслейтом гениальное, спасибо =) -->
               <h2 class="form__title">Редактировать профиль</h2>
-              <input class="form__input form__input_name" type="text" id="name" name="name">
+              <input class="form__input form__input_name" type="text" id="name" name="name"> <!--Модификаторы используются в JS, файлы и папки удалил-->
               <input class="form__input form__input_description" type="text" id="description" name="description">
-              <button class="btn__send-form" type="submit">Сохранить</button>
+              <button class="btn_send-form" type="submit">Сохранить</button>
             </form>
-            <button class="btn__close-popup"></button>
+            <button class="btn_close-popup"></button>
           </div>
 
         </section>
