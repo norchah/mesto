@@ -15,11 +15,9 @@
   }
 }
 
-
 @media screen and (max-width: 370px) {
   .btn_add {
     width: 282px;
     margin: 0 auto ;
   }
 }
-

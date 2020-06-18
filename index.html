@@ -11,7 +11,7 @@
   <body class="page">
     <div class="root">
 
-      <header class="header header__bottom-border">
+      <header class="header">
         <img class="logo" src="./images/logo/__logo.svg" alt="Логотип 'Mesto.Russia">
       </header>
 
@@ -75,24 +75,21 @@
         </section>
 
         <section class="popup popup_closed">
-          <div class="popup__container"> <!-- А я выравнивал так чтоб как в макете, почти перфетпиксель. И мимо головы прошло, что попап должен быть по центру -->
-            <form class="form" method="POST">  <!-- а решение с транслейтом гениальное, спасибо =) -->
+          <div class="popup__container">
+            <form class="form" method="POST">
               <h2 class="form__title">Редактировать профиль</h2>
-              <input class="form__input form__input_name" type="text" id="name" name="name"> <!--Модификаторы используются в JS, файлы и папки удалил-->
+              <input class="form__input form__input_name" type="text" id="name" name="name">
               <input class="form__input form__input_description" type="text" id="description" name="description">
-              <button class="btn_send-form" type="submit">Сохранить</button>
+              <button class="form__btn-send" type="submit">Сохранить</button>
             </form>
-            <button class="btn_close-popup"></button>
+            <button class="popup__btn-close"></button>
           </div>
-
         </section>
       </main>
 
       <footer class="footer">
-
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
-
     </div>
     <script src="./js/script.js"></script>
   </body>
