@@ -7,6 +7,8 @@
   line-height: 1.3;
   font-weight: normal;
   margin-top: 15px;
+  cursor: pointer;
+  transition: opacity .2s;
 }
 
 .form__btn-send:hover {

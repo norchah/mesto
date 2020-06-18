@@ -9,10 +9,12 @@
   top: -340px;
   left: calc(100% - 1px);
   margin-right: 1px;
+  transition: opacity .2s;
 }
 
 .popup__btn-close:hover {
   opacity: 0.6;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 505px) {
