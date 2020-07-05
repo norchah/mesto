@@ -5,3 +5,9 @@
   top: 50%;
   transform: translateY(-50%);
 }
+
+@media screen and (max-width: 910px) {
+  .img-popup__container {
+    margin: 0 60px;
+  }
+}

@@ -64,6 +64,8 @@ likeBtn.forEach(index => index.addEventListener('click', (evt) => {
     evt.target.classList.toggle('btn__like_active')
   })
 );
+
+
 //========== Лайки кончились ==========
 
 
