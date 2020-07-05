@@ -1,6 +1,6 @@
 
-// Объявления переменных для разных блоков, находятся в тех же блоках, что б проще искать было
-// Блоки отмечены знаками равно
+// Объявления переменных для разных блоков, находятся в тех же блоках (кроме повторно использующихся), что бы проще искать было
+// Блоки обозначены знаками равно
 
 //========== Первоначальная загрузка карточек ==========
 
@@ -42,7 +42,7 @@ const cardsList = document.querySelector('.elements__list');
 const cardTemplate = document.querySelector('#card').content;
 
 function addCards(arr) {
-  const newCard = cardTemplate.cloneNode(true); // При объявлении вне функции, ничего не работает, почему-то (
+  const newCard = cardTemplate.cloneNode(true);
 
   newCard.querySelector('.element__title').textContent = arr.name;
   newCard.querySelector('.element__img').src = arr.link;
@@ -68,9 +68,8 @@ likeBtn.forEach(index => index.addEventListener('click', (evt) => {
   })
 );*/
 
-// Не стал удалять, может быть я залез вперед, потому что пришлось использовать data-атрибуты
-// То же самое с удалением карточек и вызов попапа с картинкой
-// Зато на новых карточках все работает
+// Не стал удалять, может быть я залез вперед, потому что пришлось использовать data-атрибуты и в задании не сказано о удалении (лайках) новых карточек
+// То же самое с удалением карточек
 
 document.addEventListener('click', (evt) => {
   if(evt.target.getAttribute('data-btn') === 'like') {
@@ -108,7 +107,6 @@ const btnClose = document.querySelector('.popup__btn-close');
 const btnSend = document.querySelector('.form__btn-send');
 const btnImg = document.querySelectorAll('.element__btn-img');
 const btnCloseImg = document.querySelector('.img-popup__btn-close');
-
 
 const inputName = document.querySelector('.form__input_name');
 const inputDescription = document.querySelector('.form__input_description');
@@ -153,14 +151,14 @@ btnAdd.addEventListener('click', openPopupAdd);
 btnClose.addEventListener('click', closePopup);
 btnCloseImg.addEventListener('click', closePopupImg);
 
+function createImgPopup(target) {  // заполнение попапа с картинкой
+  const elementTitle = target.closest('.element').querySelector('.element__title');
+
+  document.querySelector('.img-popup__img').src = target.src;
+  document.querySelector('.img-popup__img-name').textContent = elementTitle.textContent;
+}
+
 // вызов попапа с картинкой
-
-/*btnImg.forEach(index => index.addEventListener('click', (evt) => {
-  const target = evt.target;
-  createImgPopup(target)
-  })
-);*/
-
 
 document.addEventListener('click', (evt) => {
   const target = evt.target;
@@ -169,16 +167,6 @@ document.addEventListener('click', (evt) => {
     createImgPopup(target)
   } else {return}
 });
-
-
-
-
-function createImgPopup(target) {  // заполнение попапа с картинкой
-  const elementTitle = target.closest('.element').querySelector('.element__title');
-
-  document.querySelector('.img-popup__img').src = target.src;
-  document.querySelector('.img-popup__img-name').textContent = elementTitle.textContent;
-}
 //========== Попапы вызваны и закрыты ==========
 
 
@@ -197,16 +185,12 @@ function addCard(name, link, alt = 'Картинка пользователя') 
 function sendForm() {
   event.preventDefault();
   if (popupTitle.textContent === 'Редактировать профиль') {
-    popup.classList.remove('popup_opened')
     userName.textContent = inputName.value;
     userDescription.textContent = inputDescription.value;
-    inputDescription.value = '';
-    inputName.value = '';
+    closePopup();
   } else if (popupTitle.textContent === 'Новое место') {
-    popup.classList.remove('popup_opened');
     addCard(inputName.value, inputDescription.value);
-    inputDescription.value = '';
-    inputName.value = '';
+    closePopup();
   }
 }
 
