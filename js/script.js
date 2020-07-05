@@ -69,7 +69,7 @@ likeBtn.forEach(index => index.addEventListener('click', (evt) => {
 );*/
 
 // Не стал удалять, может быть я залез вперед, потому что пришлось использовать data-атрибуты
-// То же самое с удалением карточек
+// То же самое с удалением карточек и вызов попапа с картинкой
 // Зато на новых карточках все работает
 
 document.addEventListener('click', (evt) => {
@@ -153,16 +153,28 @@ btnAdd.addEventListener('click', openPopupAdd);
 btnClose.addEventListener('click', closePopup);
 btnCloseImg.addEventListener('click', closePopupImg);
 
+// вызов попапа с картинкой
 
-btnImg.forEach(index => index.addEventListener('click', (evt) => { // вызов попапа с картинкой
+/*btnImg.forEach(index => index.addEventListener('click', (evt) => {
   const target = evt.target;
   createImgPopup(target)
   })
-);
+);*/
+
+
+document.addEventListener('click', (evt) => {
+  const target = evt.target;
+  if(evt.target.getAttribute('data-img') === 'img') {
+    imgPopup.classList.add('img-popup_opened')
+    createImgPopup(target)
+  } else {return}
+});
+
+
+
 
 function createImgPopup(target) {  // заполнение попапа с картинкой
   const elementTitle = target.closest('.element').querySelector('.element__title');
-  imgPopup.setAttribute('class', 'img-popup img-popup_opened');
 
   document.querySelector('.img-popup__img').src = target.src;
   document.querySelector('.img-popup__img-name').textContent = elementTitle.textContent;
