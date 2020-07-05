@@ -1,0 +1,7 @@
+.img-popup__container {
+  position: relative;
+  max-width: 812px;
+  margin: 0 auto;
+  top: 50%;
+  transform: translateY(-50%);
+}

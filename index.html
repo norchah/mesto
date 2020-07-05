@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./pages/index.css">
-    <link rel="shortcut icon" href="./images/favicon/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="./images/favicon/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://yastatic.net/q/praktikum/v0.135.5-1592892143/static/favicon.png" type="image/x-icon">
     <title>Место: Россия... и не только 😅</title>
 </head>
   <body class="page">
@@ -15,69 +14,27 @@
         <img class="logo" src="./images/logo/__logo.svg" alt="Логотип 'Mesto.Russia">
       </header>
 
-      <main>
+      <main class="main">
 
         <section class="profile">
           <img class="profile__avatar" src="./images/avatar/avatar.jpg" alt="Аватарка автора">
           <div class="profile__info">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
-            <button class="btn btn_edit"></button>
+            <button class="btn btn__popup btn_edit"></button>
             <p class="profile__subtitle">Исследователь океана</p>
           </div>
-          <button class="btn btn_add"></button>
+          <button class="btn btn__popup btn_add"></button>
         </section>
 
         <section class="elements">
           <ul class="elements__list">
-           <!--<li class="element">
-              <img class="element__img" src="./images/elements/blue_hole.jpg" alt="Большая Голубая Дыра">
-              <div class="element__discription">
-                <h2 class="element__title">Большая Голубая Дыра</h2>
-                <button class="btn btn__like"></button>
-              </div>
-            </li>
-            <li class="element">
-              <img class="element__img" src="./images/elements/gibraltar.jpg" alt="Граница несмешиваемых вод в Гибралтарском проливе">
-              <div class="element__discription">
-                <h2 class="element__title">Гибралтар</h2>
-                <button class="btn btn__like"></button>
-              </div>
-            </li>
-            <li class="element">
-              <img class="element__img" src="./images/elements/red_kamchatka.jpg" alt="Красный прилив' на Камчатке">
-              <div class="element__discription">
-                <h2 class="element__title">&laquo;Красный прилив&raquo;</h2>
-                <button class="btn btn__like"></button>
-              </div>
-            </li>
-            <li class="element">
-              <img class="element__img" src="./images/elements/baykal.jpg" alt="Байкал">
-              <div class="element__discription">
-                <h2 class="element__title">Байкал</h2>
-                <button class="btn btn__like"></button>
-              </div>
-            </li>
-            <li class="element">
-              <img class="element__img" src="./images/elements/clypso.jpg" alt="Исследовательское судно Калипсо">
-              <div class="element__discription">
-                <h2 class="element__title">&laquo;Калипсо&raquo;</h2>
-                <button class="btn btn__like"></button>
-              </div>
-            </li>
-            <li class="element">
-              <img class="element__img" src="./images/elements/Alcyon.jpg" alt="Исследовательское судно Алсион">
-              <div class="element__discription">
-                <h2 class="element__title">&laquo;Алсион&raquo;</h2>
-                <button class="btn btn__like"></button>
-              </div>
-            </li>-->
           </ul>
         </section>
 
-        <div class="popup popup_closed">
+        <div class="popup">
           <div class="popup__container">
             <form class="form" method="POST">
-              <h2 class="form__title">Редактировать профиль</h2>
+              <h2 class="form__title"></h2>
               <input class="form__input form__input_name" type="text" id="name" name="name">
               <input class="form__input form__input_description" type="text" id="description" name="description">
               <button class="form__btn-send" type="submit">Сохранить</button>
@@ -85,25 +42,28 @@
             <button class="popup__btn-close"></button>
           </div>
         </div>
+
+        <div class="img-popup">
+          <div class="img-popup__container">
+            <button class="img-popup__btn-close"></button>
+            <img class="img-popup__img" src="" alt="">
+            <p class="img-popup__img-name"></p>
+        </div>
+        </div>
+
+
+
       </main>
 
       <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
     </div>
-    <template id="popup">
-      <div class="popup popup_closed">
-        <div class="popup__container">
-          <form class="form" method="POST">
-            <h2 class="form__title">Редактировать профиль</h2>
-            <input class="form__input form__input_name" type="text" id="name" name="name">
-            <input class="form__input form__input_description" type="text" id="description" name="description">
-            <button class="form__btn-send" type="submit">Сохранить</button>
-          </form>
-          <button class="popup__btn-close"></button>
-        </div>
-      </div>
-    </template>
+
+
+
+
+
     <template id="card">
       <li class="element">
         <button class="element__btn-img"><img class="element__img" src="" alt=""></button>
@@ -111,8 +71,10 @@
           <h2 class="element__title"></h2>
           <button class="btn btn__like"></button>
         </div>
+        <button class="btn btn__delete"></button>
       </li>
     </template>
     <script src="./js/script.js"></script>
+
   </body>
 </html>

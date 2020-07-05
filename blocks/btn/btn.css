@@ -1,10 +1,10 @@
 @import url('./_add/btn_add.css');
 @import url('./_edit/btn_edit.css');
+@import url('./__delete/btn__delete.css');
 @import url('./__like/btn__like.css');
 @import url('./__like/_active/btn__like_active.css');
 
 .btn {
-  border: 1px solid white;
   background-color: transparent;
   cursor: pointer;
   transition: opacity .2s;

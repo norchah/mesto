@@ -1,4 +1,11 @@
+
+// Объявления переменных для разных блоков, находятся в тех же блоках, что б проще искать было
+// Блоки отмечены знаками равно
+
 //========== Первоначальная загрузка карточек ==========
+
+//Я добавил alt`ы в карточки, что бы img были с альтами. Менять картинки не стал
+
 const initialCards = [
   {
       name: 'Архыз',
@@ -31,60 +38,146 @@ const initialCards = [
       alt:  'Заснеженный кряж на берегу Байкала'
   }
 ];
+const cardsList = document.querySelector('.elements__list');
+const cardTemplate = document.querySelector('#card').content;
 
-function addCard(arr) {
-  const cardsList = document.querySelector('.elements__list');
-  const cardTemplate = document.querySelector('#card').content;
-  const newCard = cardTemplate.cloneNode(true);
+function addCards(arr) {
+  const newCard = cardTemplate.cloneNode(true); // При объявлении вне функции, ничего не работает, почему-то (
 
   newCard.querySelector('.element__title').textContent = arr.name;
   newCard.querySelector('.element__img').src = arr.link;
   newCard.querySelector('.element__img').alt = arr.alt;
 
-  cardsList.prepend(newCard);    // Последние добавленные - сверху
+  cardsList.append(newCard);
 };
 
-initialCards.forEach(addCard);
+initialCards.forEach(addCards);
 
 //========== Загрузка карточек завершена ==========
 
 
 
+//========== Лайки ==========
+const likeBtn = document.querySelectorAll('.btn__like');
+
+likeBtn.forEach(index => index.addEventListener('click', (evt) => {
+    evt.target.classList.toggle('btn__like_active')
+  })
+);
+//========== Лайки кончились ==========
 
 
 
 
+//========== Удаление карточек ==========
+const deleteBtn = cardsList.querySelectorAll('.btn__delete');
+
+deleteBtn.forEach(index => index.addEventListener('click', (evt) => {
+  evt.currentTarget.closest('.element').remove()
+  })
+);
+//========== Удалилось ==========
 
 
-let btnEdit = document.querySelector('.btn_edit');
-let btnClose = document.querySelector('.popup__btn-close');
-let btnSend = document.querySelector('.form__btn-send');
 
-let popup = document.querySelector('.popup');
 
-let inputName = document.querySelector('.form__input_name');
-let inputDescription = document.querySelector('.form__input_description');
-let userName = document.querySelector('.profile__title');
-let userDescription = document.querySelector('.profile__subtitle');
+//========== Попапы ==========
+const btnEdit = document.querySelector('.btn_edit');
+const btnAdd = document.querySelector('.btn_add');
+const btnClose = document.querySelector('.popup__btn-close');
+const btnSend = document.querySelector('.form__btn-send');
+const btnImg = document.querySelectorAll('.element__btn-img');
+const btnCloseImg = document.querySelector('.img-popup__btn-close');
 
+
+const inputName = document.querySelector('.form__input_name');
+const inputDescription = document.querySelector('.form__input_description');
+const userName = document.querySelector('.profile__title');
+const userDescription = document.querySelector('.profile__subtitle');
+
+const popup = document.querySelector('.popup');
+const popupTitle = document.querySelector('.form__title');
+const imgPopup = document.querySelector('.img-popup');
 
 function openPopup() {
-  popup.classList.remove('popup_closed');
-  inputName.value = userName.textContent;
+  popup.classList.add('popup_opened');
+}
+
+function openPopupEdit() {     // Общий попап => попап для редактирования
+  openPopup();
+  popupTitle.textContent = 'Редактировать профиль';
   inputDescription.value = userDescription.textContent;
+  inputName.value = userName.textContent;
+}
+
+function openPopupAdd() {  // Общий попап => попап для добавления
+  openPopup();
+  popupTitle.textContent = 'Новое место';
+  inputName.placeholder = 'Название';
+  inputDescription.placeholder = 'Ссылка на картинку';
 }
 
 function closePopup() {
-  popup.classList.add('popup_closed');
+  popup.classList.remove('popup_opened');
+  inputDescription.value = '';
+  inputName.value = '';
+}
+
+function closePopupImg() {  // Закрываю попап с картинкой
+  imgPopup.classList.remove('img-popup_opened');
+}
+
+btnEdit.addEventListener('click', openPopupEdit);
+btnAdd.addEventListener('click', openPopupAdd);
+
+btnClose.addEventListener('click', closePopup);
+btnCloseImg.addEventListener('click', closePopupImg);
+
+
+btnImg.forEach(index => index.addEventListener('click', (evt) => { // вызов попапа с картинкой
+  const target = evt.target;
+  createImagePopup(target)
+  })
+);
+
+function createImagePopup(target) {  // заполнение попапа с картинкой
+  const elementTitle = target.closest('.element').querySelector('.element__title');
+  imgPopup.setAttribute('class', 'img-popup img-popup_opened');
+
+  document.querySelector('.img-popup__img').src = target.src;
+  document.querySelector('.img-popup__img-name').textContent = elementTitle.textContent;
+}
+//========== Попапы вызваны и закрыты ==========
+
+
+//========== Добавление карточки пользователем==========
+
+function addCard(name, link, alt = 'Картинка пользователя') {
+  const newCard = cardTemplate.cloneNode(true);
+
+  newCard.querySelector('.element__title').textContent = name;
+  newCard.querySelector('.element__img').src = link;
+  newCard.querySelector('.element__img').alt = alt;
+
+  cardsList.prepend(newCard);
 }
 
 function sendForm() {
   event.preventDefault();
-  popup.classList.add('popup_closed')
-  userName.textContent = inputName.value;
-  userDescription.textContent = inputDescription.value;
+  if (popupTitle.textContent === 'Редактировать профиль') {
+    popup.classList.remove('popup_opened')
+    userName.textContent = inputName.value;
+    userDescription.textContent = inputDescription.value;
+    inputDescription.value = '';
+    inputName.value = '';
+  } else if (popupTitle.textContent === 'Новое место') {
+    popup.classList.remove('popup_opened');
+    addCard(inputName.value, inputDescription.value);
+    inputDescription.value = '';
+    inputName.value = '';
+  }
 }
 
-btnEdit.addEventListener('click', openPopup);
-btnClose.addEventListener('click', closePopup);
 btnSend.addEventListener('click', sendForm);
+
+//Вижу много чего можно сократить и даже займусь этим, но сейчас время поджимает
