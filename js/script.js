@@ -58,26 +58,44 @@ initialCards.forEach(addCards);
 
 
 //========== Лайки ==========
-const likeBtn = document.querySelectorAll('.btn__like');
+
+//Первоначально были более лаконичные лайки, но они не работали на новых картинках:
+
+/*const likeBtn = document.querySelectorAll('.btn__like');
 
 likeBtn.forEach(index => index.addEventListener('click', (evt) => {
-    evt.target.classList.toggle('btn__like_active')
+  evt.target.classList.toggle('btn__like_active')
   })
-);
+);*/
 
+// Не стал удалять, может быть я залез вперед, потому что пришлось использовать data-атрибуты
+// То же самое с удалением карточек
+// Зато на новых карточках все работает
 
+document.addEventListener('click', (evt) => {
+  if(evt.target.getAttribute('data-btn') === 'like') {
+    evt.target.classList.toggle('btn__like_active')
+  } else {return}
+});
 //========== Лайки кончились ==========
 
 
 
-
 //========== Удаление карточек ==========
-const deleteBtn = cardsList.querySelectorAll('.btn__delete');
+
+/*const deleteBtn = cardsList.querySelectorAll('.btn__delete');
 
 deleteBtn.forEach(index => index.addEventListener('click', (evt) => {
   evt.currentTarget.closest('.element').remove()
   })
-);
+);*/
+
+document.addEventListener('click', (evt) => {
+  if(evt.target.getAttribute('data-btn') === 'del') {
+    evt.target.closest('.element').remove()
+  } else {return}
+});
+
 //========== Удалилось ==========
 
 
@@ -138,11 +156,11 @@ btnCloseImg.addEventListener('click', closePopupImg);
 
 btnImg.forEach(index => index.addEventListener('click', (evt) => { // вызов попапа с картинкой
   const target = evt.target;
-  createImagePopup(target)
+  createImgPopup(target)
   })
 );
 
-function createImagePopup(target) {  // заполнение попапа с картинкой
+function createImgPopup(target) {  // заполнение попапа с картинкой
   const elementTitle = target.closest('.element').querySelector('.element__title');
   imgPopup.setAttribute('class', 'img-popup img-popup_opened');
 
@@ -152,7 +170,7 @@ function createImagePopup(target) {  // заполнение попапа с к�
 //========== Попапы вызваны и закрыты ==========
 
 
-//========== Добавление карточки пользователем==========
+//========== Добавление карточки пользователем и редактирование profile ==========
 
 function addCard(name, link, alt = 'Картинка пользователя') {
   const newCard = cardTemplate.cloneNode(true);
@@ -182,4 +200,4 @@ function sendForm() {
 
 btnSend.addEventListener('click', sendForm);
 
-//Вижу много чего можно сократить и даже займусь этим, но сейчас время поджимает
+//Кажется, есть что сократить =))

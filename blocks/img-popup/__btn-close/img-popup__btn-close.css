@@ -15,9 +15,3 @@
   opacity: 0.6;
   cursor: pointer;
 }
-
-@media screen and (max-width: 505px) {
-  .img-popup__btn-close {
-    left: calc(100% - 40px);
-  }
-}
