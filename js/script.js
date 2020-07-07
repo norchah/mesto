@@ -1,6 +1,6 @@
 
 //========== объявление переменных ==========
-// пока нас не обучали подключать файлы js, а все что я нагуглил - не помогло, но пытался
+// Спасибо большое за '.contains', совсем забыл про него и намучался в этих местах - не передать
 const initialCards = [
   {
       name: 'Архыз',
@@ -59,7 +59,7 @@ let userCards = [];
 
 //========== объявление ф-ций ===========
 
-function createCards(arr) {   // будущие карточки
+function createCard(arr) {   // будущие карточки
   const newCard = cardTemplate.cloneNode(true);
   const elementImg = newCard.querySelector('.element__img');
   newCard.querySelector('.element__title').textContent = arr.name;
@@ -68,12 +68,12 @@ function createCards(arr) {   // будущие карточки
   return newCard;
 }
 
-function addStartCards(arr){  //  добавляем начальные карточки
-  cardsList.append(createCards(arr));
+function addStartCard(arr){  //  добавляем начальные карточки
+  cardsList.append(createCard(arr));
 }
 
-function addUserCards(arr){   // карточки от пользователя
-  cardsList.prepend(createCards(arr));
+function addUserCard(arr){   // карточки от пользователя
+  cardsList.prepend(createCard(arr));
 }
 
 function openPopup() {
@@ -119,11 +119,11 @@ function createFormEdit() {  // создание формы для редакт�
 function createFormAdd() {   // создание формы для добавления контента
   userCards.name = inputName.value;
   userCards.link = inputDescription.value;
-  addUserCards(userCards);
+  addUserCard(userCards);
   userCards = [];
 }
 
-function sendFormEdit(event) {  // ф-ция отправки формы редактирования профиля
+function profileFormSubmitHandler(event) {  // ф-ция отправки формы редактирования профиля
   event.preventDefault();
   if (popupTitle.textContent === 'Редактировать профиль') {
     createFormEdit();
@@ -131,7 +131,7 @@ function sendFormEdit(event) {  // ф-ция отправки формы ред�
   }
 }
 
-function sendFormAdd() {  // ф-ция создания новой карточки пользователя
+function userCardFormSubmitHandler() {  // ф-ция создания новой карточки пользователя
   if (popupTitle.textContent === 'Новое место') {
     createFormAdd(inputName, inputDescription);
     closePopup();
@@ -141,13 +141,12 @@ function sendFormAdd() {  // ф-ция создания новой карточ�
 
 
 //========== создание стартовых карточек ==========
-initialCards.forEach(addStartCards);
+initialCards.forEach(addStartCard);
 //========== карточки на стринице ==========
 
 //========== лайки ==========
 cardsList.addEventListener('click', (evt) => {
-  const targetAttribute = evt.target.getAttribute('class');
-  if(targetAttribute === 'btn btn__like' || targetAttribute === 'btn btn__like btn__like_active') {
+  if (evt.target.classList.contains('btn__like')) {
     evt.target.classList.toggle('btn__like_active');
   }
 });
@@ -157,8 +156,8 @@ cardsList.addEventListener('click', (evt) => {
 
 //========== удаление карточек ==========
 cardsList.addEventListener('click', (evt) => {
-  if(evt.target.getAttribute('class') === 'btn btn__delete') {
-    evt.target.closest('.element').remove()
+  if (evt.target.classList.contains('btn__delete')) {
+    evt.target.closest('.element').remove();
   }
 });
 //========== удалились ==========
@@ -173,14 +172,14 @@ btnCloseImg.addEventListener('click', closePopupImg);
 // зовём попап с картинкой
 document.addEventListener('click', (evt) => {
   const target = evt.target;
-  if(evt.target.getAttribute('data-img') === 'img') {
-    imgPopup.classList.add('img-popup_opened')
-    createImgPopup(target)
+  if (evt.target.classList.contains('element-img')) {
+    imgPopup.classList.add('img-popup_opened');
+    createImgPopup(target);
   } else {return}
 });
 //========== попапы вызваны и закрыты ==========
 
 
 //========== и сабмиты ==========
-btnSend.addEventListener('click', sendFormEdit);
-btnSend.addEventListener('click', sendFormAdd);
+btnSend.addEventListener('click', profileFormSubmitHandler);
+btnSend.addEventListener('click', userCardFormSubmitHandler);
