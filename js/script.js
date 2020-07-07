@@ -1,11 +1,6 @@
 
-// Объявления переменных для разных блоков, находятся в тех же блоках (кроме повторно использующихся), что бы проще искать было
-// Блоки обозначены знаками равно
-
-//========== Первоначальная загрузка карточек ==========
-
-//Я добавил alt`ы в карточки, что бы img были с альтами. Менять картинки не стал
-
+//========== объявление переменных ==========
+// пока нас не обучали подключать файлы js, а все что я нагуглил - не помогло, но пытался
 const initialCards = [
   {
       name: 'Архыз',
@@ -38,74 +33,14 @@ const initialCards = [
       alt:  'Заснеженный кряж на берегу Байкала'
   }
 ];
+
 const cardsList = document.querySelector('.elements__list');
 const cardTemplate = document.querySelector('#card').content;
 
-function addCards(arr) {
-  const newCard = cardTemplate.cloneNode(true);
-
-  newCard.querySelector('.element__title').textContent = arr.name;
-  newCard.querySelector('.element__img').src = arr.link;
-  newCard.querySelector('.element__img').alt = arr.alt;
-
-  cardsList.append(newCard);
-};
-
-initialCards.forEach(addCards);
-
-//========== Загрузка карточек завершена ==========
-
-
-
-//========== Лайки ==========
-
-//Первоначально были более лаконичные лайки, но они не работали на новых картинках:
-
-/*const likeBtn = document.querySelectorAll('.btn__like');
-
-likeBtn.forEach(index => index.addEventListener('click', (evt) => {
-  evt.target.classList.toggle('btn__like_active')
-  })
-);*/
-
-// Не стал удалять, может быть я залез вперед, потому что пришлось использовать data-атрибуты и в задании не сказано о удалении (лайках) новых карточек
-// То же самое с удалением карточек
-
-document.addEventListener('click', (evt) => {
-  if(evt.target.getAttribute('data-btn') === 'like') {
-    evt.target.classList.toggle('btn__like_active')
-  } else {return}
-});
-//========== Лайки кончились ==========
-
-
-
-//========== Удаление карточек ==========
-
-/*const deleteBtn = cardsList.querySelectorAll('.btn__delete');
-
-deleteBtn.forEach(index => index.addEventListener('click', (evt) => {
-  evt.currentTarget.closest('.element').remove()
-  })
-);*/
-
-document.addEventListener('click', (evt) => {
-  if(evt.target.getAttribute('data-btn') === 'del') {
-    evt.target.closest('.element').remove()
-  } else {return}
-});
-
-//========== Удалилось ==========
-
-
-
-
-//========== Попапы ==========
 const btnEdit = document.querySelector('.btn_edit');
 const btnAdd = document.querySelector('.btn_add');
 const btnClose = document.querySelector('.popup__btn-close');
 const btnSend = document.querySelector('.form__btn-send');
-const btnImg = document.querySelectorAll('.element__btn-img');
 const btnCloseImg = document.querySelector('.img-popup__btn-close');
 
 const inputName = document.querySelector('.form__input_name');
@@ -117,18 +52,42 @@ const popup = document.querySelector('.popup');
 const popupTitle = document.querySelector('.form__title');
 const imgPopup = document.querySelector('.img-popup');
 
+let userCards = [];
+
+//=========== объявлены ==========
+
+
+//========== объявление ф-ций ===========
+
+function createCards(arr) {   // будущие карточки
+  const newCard = cardTemplate.cloneNode(true);
+  const elementImg = newCard.querySelector('.element__img');
+  newCard.querySelector('.element__title').textContent = arr.name;
+  elementImg.src = arr.link;
+  elementImg.alt = arr.alt;
+  return newCard;
+}
+
+function addStartCards(arr){  //  добавляем начальные карточки
+  cardsList.append(createCards(arr));
+}
+
+function addUserCards(arr){   // карточки от пользователя
+  cardsList.prepend(createCards(arr));
+}
+
 function openPopup() {
   popup.classList.add('popup_opened');
 }
 
-function openPopupEdit() {     // Общий попап => попап для редактирования
+function openPopupEdit() {     // общий попап => попап для редактирования
   openPopup();
   popupTitle.textContent = 'Редактировать профиль';
   inputDescription.value = userDescription.textContent;
   inputName.value = userName.textContent;
 }
 
-function openPopupAdd() {  // Общий попап => попап для добавления
+function openPopupAdd() {  // общий попап => попап для добавления
   openPopup();
   popupTitle.textContent = 'Новое место';
   inputName.placeholder = 'Название';
@@ -141,15 +100,9 @@ function closePopup() {
   inputName.value = '';
 }
 
-function closePopupImg() {  // Закрываю попап с картинкой
+function closePopupImg() {
   imgPopup.classList.remove('img-popup_opened');
 }
-
-btnEdit.addEventListener('click', openPopupEdit);
-btnAdd.addEventListener('click', openPopupAdd);
-
-btnClose.addEventListener('click', closePopup);
-btnCloseImg.addEventListener('click', closePopupImg);
 
 function createImgPopup(target) {  // заполнение попапа с картинкой
   const elementTitle = target.closest('.element').querySelector('.element__title');
@@ -158,8 +111,66 @@ function createImgPopup(target) {  // заполнение попапа с ка�
   document.querySelector('.img-popup__img-name').textContent = elementTitle.textContent;
 }
 
-// вызов попапа с картинкой
+function createFormEdit() {  // создание формы для редактирования
+  userName.textContent = inputName.value;
+  userDescription.textContent = inputDescription.value;
+}
 
+function createFormAdd() {   // создание формы для добавления контента
+  userCards.name = inputName.value;
+  userCards.link = inputDescription.value;
+  addUserCards(userCards);
+  userCards = [];
+}
+
+function sendFormEdit(event) {  // ф-ция отправки формы редактирования профиля
+  event.preventDefault();
+  if (popupTitle.textContent === 'Редактировать профиль') {
+    createFormEdit();
+    closePopup();
+  }
+}
+
+function sendFormAdd() {  // ф-ция создания новой карточки пользователя
+  if (popupTitle.textContent === 'Новое место') {
+    createFormAdd(inputName, inputDescription);
+    closePopup();
+  }
+}
+//========== ф-ци объявлены ==========
+
+
+//========== создание стартовых карточек ==========
+initialCards.forEach(addStartCards);
+//========== карточки на стринице ==========
+
+//========== лайки ==========
+cardsList.addEventListener('click', (evt) => {
+  const targetAttribute = evt.target.getAttribute('class');
+  if(targetAttribute === 'btn btn__like' || targetAttribute === 'btn btn__like btn__like_active') {
+    evt.target.classList.toggle('btn__like_active');
+  }
+});
+//========== лайки лайкают ==========
+
+
+
+//========== удаление карточек ==========
+cardsList.addEventListener('click', (evt) => {
+  if(evt.target.getAttribute('class') === 'btn btn__delete') {
+    evt.target.closest('.element').remove()
+  }
+});
+//========== удалились ==========
+
+//========== зовём попапы и закрываем ==========
+btnEdit.addEventListener('click', openPopupEdit);
+btnAdd.addEventListener('click', openPopupAdd);
+
+btnClose.addEventListener('click', closePopup);
+btnCloseImg.addEventListener('click', closePopupImg);
+
+// зовём попап с картинкой
 document.addEventListener('click', (evt) => {
   const target = evt.target;
   if(evt.target.getAttribute('data-img') === 'img') {
@@ -167,33 +178,9 @@ document.addEventListener('click', (evt) => {
     createImgPopup(target)
   } else {return}
 });
-//========== Попапы вызваны и закрыты ==========
+//========== попапы вызваны и закрыты ==========
 
 
-//========== Добавление карточки пользователем и редактирование profile ==========
-
-function addCard(name, link, alt = 'Картинка пользователя') {
-  const newCard = cardTemplate.cloneNode(true);
-
-  newCard.querySelector('.element__title').textContent = name;
-  newCard.querySelector('.element__img').src = link;
-  newCard.querySelector('.element__img').alt = alt;
-
-  cardsList.prepend(newCard);
-}
-
-function sendForm() {
-  event.preventDefault();
-  if (popupTitle.textContent === 'Редактировать профиль') {
-    userName.textContent = inputName.value;
-    userDescription.textContent = inputDescription.value;
-    closePopup();
-  } else if (popupTitle.textContent === 'Новое место') {
-    addCard(inputName.value, inputDescription.value);
-    closePopup();
-  }
-}
-
-btnSend.addEventListener('click', sendForm);
-
-//Кажется, есть что сократить =))
+//========== и сабмиты ==========
+btnSend.addEventListener('click', sendFormEdit);
+btnSend.addEventListener('click', sendFormAdd);
