@@ -1,38 +1,4 @@
-
 //========== объявление переменных ==========
-// Спасибо большое за '.contains', совсем забыл про него и намучался в этих местах - не передать
-const initialCards = [
-  {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-      alt:  'Горы Архыза'
-  },
-  {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-      alt:  'Озера  в окружении заснеженных холмов и леса'
-  },
-  {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-      alt:  'Советская застройка "коробками"'
-  },
-  {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-      alt:  'Один из потухших вулканов Камчатки'
-  },
-  {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-      alt:  'Железная дорога, уходящая в горизонт'
-  },
-  {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-      alt:  'Заснеженный кряж на берегу Байкала'
-  }
-];
 
 const cardsList = document.querySelector('.elements__list');
 const cardTemplate = document.querySelector('#card').content;
@@ -51,6 +17,11 @@ const userDescription = document.querySelector('.profile__subtitle');
 const popup = document.querySelector('.popup');
 const popupTitle = document.querySelector('.form__title');
 const imgPopup = document.querySelector('.img-popup');
+const popupContainer = document.querySelector('.popup__container');
+
+const formElement = document.querySelector('.form');
+const formInput = document.querySelector('.form__input');
+const formError = document.querySelectorAll('.form__input-error');
 
 let userCards = [];
 
@@ -76,8 +47,17 @@ function addUserCard(arr){   // карточки от пользователя
   cardsList.prepend(createCard(arr));
 }
 
+function handlerEsc (evt) { //закрытие на esc
+  if (evt.key !== 'Escape') {
+    return;
+  } else {
+    closePopup();
+  }
+}
+
 function openPopup() {
   popup.classList.add('popup_opened');
+  document.addEventListener('keyup', handlerEsc); // esc-детектед
 }
 
 function openPopupEdit() {     // общий попап => попап для редактирования
@@ -85,6 +65,8 @@ function openPopupEdit() {     // общий попап => попап для р�
   popupTitle.textContent = 'Редактировать профиль';
   inputDescription.value = userDescription.textContent;
   inputName.value = userName.textContent;
+  createValidFormEdit();
+  setEventListeners(formElement); // включение валидации для поапа редактирования
 }
 
 function openPopupAdd() {  // общий попап => попап для добавления
@@ -92,12 +74,21 @@ function openPopupAdd() {  // общий попап => попап для доб�
   popupTitle.textContent = 'Новое место';
   inputName.placeholder = 'Название';
   inputDescription.placeholder = 'Ссылка на картинку';
+  createValidFormAdd();
+  setEventListeners(formElement); // включение валидации для попапа добавления
+}
+
+function clearErrorFields (errorField) {
+  errorField.textContent = '';
 }
 
 function closePopup() {
   popup.classList.remove('popup_opened');
-  inputDescription.value = '';
   inputName.value = '';
+  inputDescription.value = '';
+  inputDescription.setAttribute('type', 'text'); // очистка type = "url", в попапе добавления
+  document.removeEventListener('keyup', handlerEsc); // удаление esc-детектед
+  formError.forEach(clearErrorFields); //очистка полей с текстом ошибок
 }
 
 function closePopupImg() {
@@ -106,7 +97,6 @@ function closePopupImg() {
 
 function createImgPopup(target) {  // заполнение попапа с картинкой
   const elementTitle = target.closest('.element').querySelector('.element__title');
-
   document.querySelector('.img-popup__img').src = target.src;
   document.querySelector('.img-popup__img-name').textContent = elementTitle.textContent;
 }
@@ -142,7 +132,9 @@ function userCardFormSubmitHandler() {  // ф-ция создания новой
 
 //========== создание стартовых карточек ==========
 initialCards.forEach(addStartCard);
-//========== карточки на стринице ==========
+//========== карточки на странице ==========
+
+
 
 //========== лайки ==========
 cardsList.addEventListener('click', (evt) => {
@@ -162,6 +154,8 @@ cardsList.addEventListener('click', (evt) => {
 });
 //========== удалились ==========
 
+
+
 //========== зовём попапы и закрываем ==========
 btnEdit.addEventListener('click', openPopupEdit);
 btnAdd.addEventListener('click', openPopupAdd);
@@ -180,6 +174,13 @@ document.addEventListener('click', (evt) => {
 //========== попапы вызваны и закрыты ==========
 
 
+
 //========== и сабмиты ==========
 btnSend.addEventListener('click', profileFormSubmitHandler);
 btnSend.addEventListener('click', userCardFormSubmitHandler);
+
+//========== Закрытие по оверлею ==========
+popup.addEventListener('click', closePopup); // Закрытие на оверлей
+popupContainer.addEventListener('click', function(event) {// остановка всплытия при клике на оверлей
+  event.stopImmediatePropagation();
+});
