@@ -1,26 +1,24 @@
 //========== Функции для валидации ==========
 
-// Что бы добавить все условия валидации в разметку, пришлось добавить второй попап и частично переписать JS
-
-function showError (formElement, inputElement, errorMessage) { //показать ошибки
+function showError (formElement, inputElement, errorMessage, config) { //показать ошибки
   const formError = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.add('form__input_error');
-  formError.classList.remove('form__input-error_hidden');
+  inputElement.classList.add(config.formInputError);
+  formError.classList.remove(config.formInputErrorHidden);
   formError.textContent = errorMessage;
 }
 
-function hideError (formElement, inputElement) { //скрыть ошибки
+function hideError (formElement, inputElement, config) { //скрыть ошибки
   const formError = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.remove('form__input_error');
-  formError.classList.add('form__input-error_hidden');
+  clearBorderError (inputElement, config);
+  formError.classList.add(config.formInputErrorHidden);
   formError.textContent = '';
 }
 
-function isValid (formElement, inputElement) {
+function isValid (formElement, inputElement, config) {
   if (!inputElement.validity.valid) {
-    showError(formElement, inputElement, inputElement.validationMessage);
+    showError(formElement, inputElement, inputElement.validationMessage, config);
   } else {
-    hideError(formElement, inputElement);
+    hideError(formElement, inputElement, config);
   }
 };
 
@@ -30,34 +28,34 @@ function hasInvalidInput(inputList) {  //проверка на валиднос�
   })
 }
 
-function toggleButtonState(inputList, button) {
+function toggleButtonState(inputList, button, config) {
   if(hasInvalidInput(inputList)) {
-    button.classList.add('form__btn-send_disabled');
-    button.setAttribute('disabled', true);
+    btnSendDisabled (button, config);
   } else {
-    button.classList.remove('form__btn-send_disabled');
+    button.classList.remove(config.btnSendDisabled);
     button.removeAttribute('disabled');
   }
 }
 
-function setEventListeners (formElement) {  //слушатели инпутов и управление кнопкой
-  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
-  const btnSend = formElement.querySelector('.form__btn-send');
-  toggleButtonState(inputList, btnSend);
+function setEventListeners (formElement, config) {  //слушатели инпутов и управление кнопкой
+  const inputList = Array.from(formElement.querySelectorAll(config.formInput));
+  const btnSend = formElement.querySelector(config.btnSend);
   inputList.forEach(inputElement => {
     inputElement.addEventListener('input', () => {
-      isValid(formElement, inputElement);
-      toggleButtonState(inputList, btnSend);
+      isValid(formElement, inputElement, config);
+      toggleButtonState(inputList, btnSend, config);
     });
   });
 }
 
-function enableValidation () {
-  const formList = Array.from(document.querySelectorAll('.form'));
+function enableValidation (config) {
+  const formList = Array.from(document.querySelectorAll(config.form));
   formList.forEach(formElement => {
     formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
-    setEventListeners(formElement);
+    setEventListeners(formElement, config);
   });
 }
+
+enableValidation(validationConfig);

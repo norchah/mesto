@@ -33,3 +33,12 @@ const initialCards = [
       alt:  'Заснеженный кряж на берегу Байкала'
   }
 ];
+
+const validationConfig = {
+  form: '.form',
+  formInput: '.form__input',
+  formInputError: 'form__input_error',
+  formInputErrorHidden: 'form__input-error_hidden',
+  btnSend: '.form__btn-send',
+  btnSendDisabled: 'form__btn-send_disabled'
+}

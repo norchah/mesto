@@ -1,3 +1,8 @@
+// Отправил работу на третью проверку, которая было отклонена, незаметив что она вернулась! А я загружал как раз испрвденный
+// esc для попапа с картинкой. Прошу прощения - недосмотрел.
+
+// объект для валидации в файле ./js/objects.js, там же и начальные карточки
+
 //========== объявление переменных ==========
 
 const cardsList = document.querySelector('.elements__list');
@@ -21,13 +26,12 @@ const userDescription = document.querySelector('.profile__subtitle');
 
 const popupEdit = document.querySelector('.popup-edit');
 const popupAdd = document.querySelector('.popup-add');
-const popupTitle = document.querySelector('.form__title');
 const imgPopup = document.querySelector('.img-popup');
 const popupContainers = document.querySelectorAll('.popup__container');
 const imgPopupContainer = document.querySelector('.img-popup__container');
 
-const formElement = document.querySelectorAll('.form');
-const formError = document.querySelectorAll('.form__input-error');
+const formInputs = document.querySelectorAll('.form__input');
+const formErrors = document.querySelectorAll('.form__input-error');
 
 let userCards = [];
 
@@ -62,35 +66,50 @@ function handlerEsc (evt) { //закрытие на esc
   }
 }
 
+function btnSendDisabled (button, config) { // функция отключения кнопки
+  button.classList.add(config.btnSendDisabled);
+  button.setAttribute('disabled', true);
+}
+
 function openPopup(modal) {
   modal.classList.add('popup_opened');
   document.addEventListener('keyup', handlerEsc); // esc-детектед
-
 }
 
 function openPopupEdit() {     //  попап для редактирования
   openPopup(popupEdit);
   inputDescription.value = userDescription.textContent;
   inputName.value = userName.textContent;
-  enableValidation(formElement);
 }
 
 function openPopupAdd() {  // попап для добавления
   openPopup(popupAdd);
-  enableValidation(formElement);
+  btnSendDisabled (btnSendAdd, validationConfig); // отключается кнопка на невалидной форме до начала ввода
 }
 
-function clearErrorFields (errorField) {
-  errorField.textContent = '';
+function clearFields () { //очистка полей
+  inputNameAdd.value = '';
+  inputDescriptionAdd.value = '';
+
+}
+
+function clearBorderError (inputElement, config) { // очистка красной границы
+  inputElement.classList.remove(config.formInputError);
+}
+
+function clearErrorFields (element) {
+  element.textContent = '';
 }
 
 function closePopup() {
   popupAdd.classList.remove('popup_opened');
   popupEdit.classList.remove('popup_opened');
-  inputName.value = '';
-  inputDescription.value = '';
+  clearFields ()
   document.removeEventListener('keyup', handlerEsc); // удаление esc-детектед
-  formError.forEach(clearErrorFields); //очистка полей с текстом ошибок
+  formInputs.forEach(inputElement => {  // очистка красной границы при закрытии невалидной формы
+    clearBorderError(inputElement, validationConfig);
+  });
+  formErrors.forEach(clearErrorFields); //очистка полей с текстом ошибок
   closePopupImg()
 }
 
@@ -114,7 +133,8 @@ function createFormEdit() {  // создание формы для редакт�
 function createFormAdd() {   // создание формы для добавления контента
   userCards.name = inputNameAdd.value;
   userCards.link = inputDescriptionAdd.value;
-  addUserCard(userCards);
+  userCards.alt = inputNameAdd.value;
+  addUserCard(userCards)
   userCards = [];
 }
 
@@ -187,10 +207,10 @@ popupAdd.addEventListener('click', closePopup); // Закрытие на ове�
 popupEdit.addEventListener('click', closePopup);
 imgPopup.addEventListener('click', closePopup);
 popupContainers.forEach(element => {
-  element.addEventListener('click', function(event) {// остановка всплытия при клике на оверлей
-  event.stopImmediatePropagation();
+  element.addEventListener('click', (evt) => {// остановка всплытия при клике на оверлей
+  evt.stopImmediatePropagation();
   })
 });
-imgPopupContainer.addEventListener('click', function(event) {
-  event.stopImmediatePropagation();
+imgPopupContainer.addEventListener('click', (evt) => {
+  evt.stopImmediatePropagation();
 });
