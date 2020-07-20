@@ -103,6 +103,7 @@ function createImgPopup(target) {  // заполнение попапа с ка�
   const elementTitle = target.closest('.element').querySelector('.element__title');
   document.querySelector('.img-popup__img').src = target.src;
   document.querySelector('.img-popup__img-name').textContent = elementTitle.textContent;
+  document.addEventListener('keyup', handlerEsc);
 }
 
 function createFormEdit() {  // создание формы для редактирования
