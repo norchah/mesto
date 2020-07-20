@@ -71,6 +71,11 @@ function btnSendDisabled (button, config) { // функция отключени
   button.setAttribute('disabled', true);
 }
 
+function btnSendEnabled (button, config) { // функция включения кнопки
+  button.classList.remove(config.btnSendDisabled);
+  button.removeAttribute('disabled');
+}
+
 function openPopup(modal) {
   modal.classList.add('popup_opened');
   document.addEventListener('keyup', handlerEsc); // esc-детектед
@@ -106,9 +111,10 @@ function closePopup() {
   popupEdit.classList.remove('popup_opened');
   clearFields ()
   document.removeEventListener('keyup', handlerEsc); // удаление esc-детектед
-  formInputs.forEach(inputElement => {  // очистка красной границы при закрытии невалидной формы
+  formInputs.forEach(inputElement => {  // очистка красной границы при закрытии (не сабмит) невалидной формы
     clearBorderError(inputElement, validationConfig);
   });
+  btnSendEnabled (btnSendEdit, validationConfig); // включение кнопки отправки формы при закрытии (не сабмит) невалидной формы
   formErrors.forEach(clearErrorFields); //очистка полей с текстом ошибок
   closePopupImg()
 }
