@@ -32,8 +32,7 @@ function toggleButtonState(inputList, button, config) {
   if(hasInvalidInput(inputList)) {
     btnSendDisabled (button, config);
   } else {
-    button.classList.remove(config.btnSendDisabled);
-    button.removeAttribute('disabled');
+    btnSendEnabled (button, config);
   }
 }
 
