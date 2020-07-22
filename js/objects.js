@@ -1,7 +1,7 @@
 //========== Первоначальные карточки =========
 // Добавил свои альты
 
-const initialCards = [
+export const initialCards = [
   {
       name: 'Архыз',
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
@@ -37,8 +37,11 @@ const initialCards = [
 const validationConfig = {
   form: '.form',
   formInput: '.form__input',
-  formInputError: 'form__input_error',
+  inputError: 'form__input_error',
+  formInputError: 'form__input-error',
   formInputErrorHidden: 'form__input-error_hidden',
   btnSend: '.form__btn-send',
   btnSendDisabled: 'form__btn-send_disabled'
 }
+
+export {validationConfig};

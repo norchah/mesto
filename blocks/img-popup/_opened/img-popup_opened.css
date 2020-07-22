@@ -1,4 +1,4 @@
-div.img-popup_opened {
+.img-popup_opened {
   display: block;
   animation: showBlock 0.3s linear forwards;
 }
