@@ -1,7 +1,7 @@
-import {btnSendDisabled, btnSendEnabled} from './index.js';
-import {validationConfig} from './objects.js';
+import {btnSendDisabled, btnSendEnabled} from './Utils.js';
 
-class FormValidator {
+
+export default class FormValidator {
   constructor(data, formSelector) {
     this._form = data.form;
     this._formInput = data.formInput;
@@ -77,11 +77,3 @@ class FormValidator {
     this._setEventListener();
   }
 }
-
-const formAdd = new FormValidator(validationConfig, '.form-add');
-const formEdit = new FormValidator(validationConfig, '.form-edit');
-formAdd.enableValidation();
-formEdit.enableValidation();
-
-export {formAdd, formEdit};
-

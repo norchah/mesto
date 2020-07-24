@@ -1,17 +1,10 @@
 
 //========== импорты объектов ==========
 import {initialCards} from './objects.js';
+import {cardsList, imgPopup, imgPopupContainer, btnCloseImg, popupImage} from './index.js';
 //========== импортированы =========
 
-//========= перенесённые переменные =========
-const cardsList = document.querySelector('.elements__list');
-const imgPopup = document.querySelector('.img-popup');
-const imgPopupContainer = document.querySelector('.img-popup__container');
-const btnCloseImg = document.querySelector('.img-popup__btn-close');
-//========== перенесены =========
-
-
-class Card { // используется и для загрузки стартовых карточек, и для пользовательских
+export default class Card { // используется и для загрузки стартовых карточек, и для пользовательских
   constructor(data, cardSelector) {
     this._name = data.name;
     this._link = data.link;
@@ -41,17 +34,14 @@ class Card { // используется и для загрузки старто
   }
 
   _createPopupImg() {
-    const popupImg = document.querySelector('.img-popup__img');
-    popupImg.src = this._link;
-    popupImg.alt = this._name;
-    document.querySelector('.img-popup__img-name').textContent = this._name;
+    popupImage.src = this._link;
+    popupImage.alt = this._name;
+    imgPopup.querySelector('.img-popup__img-name').textContent = this._name;
   }
 
   _handleEsc(evt) {
-    if (evt !== 'Escape') {
-      return;
-    } else {
-      imgPopup.classList.remove('img-popup_opened'); //this._handleClosePopupImg(); не срабатывает
+    if (evt === 'Escape') {
+      imgPopup.classList.remove('img-popup_opened');
       document.removeEventListener('keyup', (evt) => { // отменяем ожидание esc`а
         this._handleEsc(evt.key);
       });
@@ -94,4 +84,3 @@ class Card { // используется и для загрузки старто
 });
 
 //========== и экспорт =========
-export {cardsList, Card};

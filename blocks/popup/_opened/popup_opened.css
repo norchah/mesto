@@ -1,14 +1,5 @@
 div.popup_opened {
-  display: block;
-  animation: showBlock 0.3s linear forwards;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility .3s linear, opacity .3s linear;
 }
-
-@keyframes showBlock {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-

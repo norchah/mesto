@@ -1,6 +1,8 @@
-import {cardsList, Card} from './Card.js';
-import {formAdd, formEdit} from './FormValidator.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 import {validationConfig} from './objects.js';
+import {btnSendDisabled, btnSendEnabled} from './Utils.js';
+
 
 //========== объявление переменных ==========
 
@@ -9,6 +11,13 @@ const btnAdd = document.querySelector('.btn_add');
 const btnCloseAdd = document.querySelector('.btn-close-add');
 const btnCloseEdit = document.querySelector('.btn-close-edit');
 
+// Экспортируемые переменные =====
+const cardsList = document.querySelector('.elements__list');
+const imgPopup = document.querySelector('.img-popup');
+const imgPopupContainer = document.querySelector('.img-popup__container');
+const btnCloseImg = document.querySelector('.img-popup__btn-close');
+const popupImage = document.querySelector('.img-popup__img');
+// Экспорт окончен =====
 
 const btnSendEdit = document.querySelector('.form__btn-send-edit');
 const btnSendAdd = document.querySelector('.form__btn-send-add');
@@ -52,16 +61,6 @@ function handlerEsc (evt) { // ф-ция закрытия на esc
   }
 }
 
-function btnSendDisabled (button) { // функция отключения кнопки
-  button.classList.add('form__btn-send_disabled');
-  button.setAttribute('disabled', true);
-}
-
-function btnSendEnabled (button) { // функция включения кнопки
-  button.classList.remove('form__btn-send_disabled');
-  button.removeAttribute('disabled');
-}
-
 function clearFields () { //очистка полей
   inputNameAdd.value = '';
   inputDescriptionAdd.value = '';
@@ -101,6 +100,19 @@ function closePopup() {
   });
   btnSendEnabled (btnSendEdit, validationConfig); // включение кнопки отправки формы при закрытии (не сабмит) невалидной формы
   formErrors.forEach(clearErrorFields); //очистка полей с текстом ошибок
+}
+
+
+function closePopupAdd(evt) {
+  if (evt.target === evt.currentTarget) {
+    closePopup();
+  }
+}
+
+function closePopupEdit(evt) {
+  if (evt.target === evt.currentTarget) {
+    closePopup();
+  }
 }
 
 function createFormEdit() {  // создание формы для редактирования
@@ -161,14 +173,19 @@ btnSendEdit.addEventListener('click', profileFormSubmitHandler);
 btnSendAdd.addEventListener('click', userCardFormSubmitHandler);
 
 //========== Закрытие по оверлею ==========
-popupAdd.addEventListener('click', closePopup);
-popupEdit.addEventListener('click', closePopup);
-
-popupContainers.forEach(element => {   // остановка всплытия при клике на оверлей
-  element.addEventListener('click', (evt) => {
-  evt.stopImmediatePropagation();
-  })
+popupAdd.addEventListener('click', (evt) => {
+  closePopupAdd(evt)
+});
+popupEdit.addEventListener('click', (evt) => {
+  closePopupEdit(evt)
 });
 
+//========== Включение валидации ==========
+const formAdd = new FormValidator(validationConfig, '.form-add');
+const formEdit = new FormValidator(validationConfig, '.form-edit');
+formAdd.enableValidation();
+formEdit.enableValidation();
 
-export {btnSendDisabled, btnSendEnabled};
+
+export {cardsList, imgPopup, imgPopupContainer, btnCloseImg, popupImage};
+

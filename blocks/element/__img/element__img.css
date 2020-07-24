@@ -3,4 +3,11 @@
   height: 282px;
   border-radius: 10px 10px 0 0;
   box-sizing: cover;
+  transition: transform .01s linear;
+}
+
+.element__img:hover {
+  transform: scale(1.1);
+  transition: transform 2s linear;
+
 }
