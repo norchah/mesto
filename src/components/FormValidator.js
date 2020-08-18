@@ -1,4 +1,4 @@
-import {btnSendDisabled, btnSendEnabled} from './Utils.js';
+import {btnSendDisabled, btnSendEnabled} from '../utils/utils.js';
 
 
 export default class FormValidator {

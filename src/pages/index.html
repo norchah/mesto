@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
+
     <link rel="icon" href="https://yastatic.net/q/praktikum/v0.135.5-1592892143/static/favicon.png" type="image/x-icon">
     <title>Место: Россия... и не только 😅</title>
 </head>
@@ -11,13 +11,13 @@
     <div class="root">
 
       <header class="header">
-        <img class="logo" src="./images/logo/__logo.svg" alt="Логотип 'Mesto.Russia">
+        <img class="logo" src="../images/logo/__logo.svg" alt="Логотип 'Mesto.Russia">
       </header>
 
       <main class="main">
 
         <section class="profile">
-          <img class="profile__avatar" src="./images/avatar/avatar.jpg" alt="Аватарка автора">
+          <img class="profile__avatar" src="../images/avatar/avatar.jpg" alt="Аватарка автора">
           <div class="profile__info">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
             <button class="btn btn_edit"></button>
@@ -57,7 +57,7 @@
               <span class="form__input-error form__input-error_hidden" id="description-edit-error"></span>
               <button class="form__btn-send form__btn-send-edit" type="submit">Сохранить</button>
             </form>
-            <button class="popup__btn-close btn-close-edit"></button>
+            <button class="popup__btn-close btn-close-edit btn-close"></button>
           </div>
         </div>
 
@@ -87,14 +87,14 @@
               <span class="form__input-error form__input-error_hidden" id="description-add-error"></span>
               <button class="form__btn-send form__btn-send-add" type="submit">Сохранить</button>
             </form>
-            <button class="popup__btn-close btn-close-add"></button>
+            <button class="popup__btn-close btn-close-add btn-close"></button>
           </div>
         </div>
 
         <div class="img-popup">
           <div class="img-popup__container">
-            <button class="img-popup__btn-close"></button>
-            <img class="img-popup__img" src="" alt="">
+            <button class="img-popup__btn-close btn-close"></button>
+            <img class="img-popup__img"  alt="">
             <p class="img-popup__img-name"></p>
         </div>
         </div>
@@ -107,7 +107,7 @@
 
     <template id="card">
       <li class="element">
-        <button class="element__btn-img"><img class="element__img" src="" alt=""></button>
+        <button class="element__btn-img"><img class="element__img"  alt=""></button>
         <div class="element__discription">
           <h2 class="element__title"></h2>
           <button class="btn btn_like"></button>
@@ -115,13 +115,6 @@
         <button class="btn btn_delete"></button>
       </li>
     </template>
-    <script type="module" src="./js/objects.js"></script>
-    <script type="module" src="./js/Utils.js"></script>
-    <script type="module" src="./js/Card.js"></script>
-    <script type="module" src="./js/FormValidator.js"></script>
-    <script type="module" src="./js/index.js"></script>
-
-
 
   </body>
 </html>
