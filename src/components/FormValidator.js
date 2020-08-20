@@ -1,6 +1,5 @@
 import {btnSendDisabled, btnSendEnabled} from '../utils/utils.js';
 
-
 export default class FormValidator {
   constructor(data, formSelector) {
     this._form = data.form;

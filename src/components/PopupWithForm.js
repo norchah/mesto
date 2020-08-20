@@ -1,19 +1,22 @@
 import Popup from './Popup.js';
+import {validationConfig, formInputs, formErrors} from '../utils/constants.js';
+import {clearBorderError} from '../utils/utils.js';
 
 export default class PopupWithForm extends Popup {
   constructor({modal, formSubmitHandler}) {
     super(modal);
     this._formSubmitHandler = formSubmitHandler;
+    this._inputList = this._modal.querySelectorAll('.form__input');
   }
 
-  _getInputValues() {
-    this._inputList = this._modal.querySelectorAll('.form__input');
+  getInputValues() {
     this._formValues = {};
     this._inputList.forEach(input => {
       this._formValues[input.name] = input.value;
     })
+
     return this._formValues;
-   }
+  }
 
   submit() {
     this._setEventListener();
@@ -21,9 +24,17 @@ export default class PopupWithForm extends Popup {
 
   close() {
     super.close();
+    this._inputList.forEach(input => { //очистка полей ошибок
+       input.value = '';
+     })
+     formInputs.forEach(inputElement => {  // очистка красной границы при закрытии (не сабмит) невалидной формы
+      clearBorderError(inputElement, validationConfig);
+    });
+    formErrors.forEach(element => {element.textContent = ''}); //очистка полей с текстом ошибок
   }
 
   _setEventListener() {
-    this._formSubmitHandler(this._getInputValues());
+    super._setEventListeners();
+    this._formSubmitHandler(this.getInputValues());
   }
 }

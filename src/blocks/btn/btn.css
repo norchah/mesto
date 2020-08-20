@@ -2,7 +2,7 @@
 @import url('./_edit/btn_edit.css');
 @import url('./_delete/btn_delete.css');
 @import url('./_like/btn_like.css');
-@import url('./_like/_active/btn_like_active.css');
+@import url('./_active/btn_like_active.css');
 
 .btn {
   background-color: transparent;

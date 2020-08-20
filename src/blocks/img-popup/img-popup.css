@@ -2,17 +2,3 @@
 @import url('./__container/img-popup__container.css');
 @import url('./__btn-close/img-popup__btn-close.css');
 @import url('./__img-name/img-popup__img-name.css');
-
-
-.img-popup {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  background-color: rgb(0 0 0 / .6);
-  top: 0px;
-  left: 0px;
-  color: black;
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility .2s linear, opacity .2s linear;
-}

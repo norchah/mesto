@@ -5,39 +5,74 @@ import {
   btnEdit,
   btnAdd,
   btnSendEdit,
-  cardsList,
   btnSendAdd,
   inputName,
   inputDescription
 } from '../utils/constants.js';
-import {btnSendDisabled, btnSendEnabled, createObjectUserCard} from '../utils/utils.js';
+import {
+  btnSendDisabled,
+  btnSendEnabled,
+  createObjectUserCard
+} from '../utils/utils.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
-import Popup from '../components/Popup.js';
-import UserInfo from '../components/UsreInfo.js';
+import UserInfo from '../components/UserInfo.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 
+
+//========== стартовые карточки появляются на странице =========
+const cards = new Section({
+  items: initialCards,
+  renderer: (element) => {
+    const card = new Card({
+      name: element.name,
+      link: element.link,
+      handleCardClick: (name, link) => {
+        const popupWithImg = new PopupWithImage('.img-popup');
+        popupWithImg.open(name, link);
+      }
+    },
+    '#card'
+    );
+    const cardElement = card.generateCard();
+    cards.addItem(cardElement);
+  }},
+  '.elements__list'
+);
+cards.renderItems();
+
 //========== копии классов ==========
-const userInfo = new UserInfo ('.popup-edit', inputName, inputDescription);
 
 const popupEditProfile = new PopupWithForm({
   modal: '.popup-edit',
   formSubmitHandler: () => {
-    userInfo.setUserInfo();
+    const userNewInfo = new UserInfo ({
+      name: inputName.value,
+      info: inputDescription.value},
+      '.profile'
+    );
+    userNewInfo.setUserInfo();
   }
 });
 
 const popupAddImages = new PopupWithForm({
   modal: '.popup-add',
   formSubmitHandler: () => {
-    const card = new Card(
-      createObjectUserCard(),
-      '#card'
+    const userCards = createObjectUserCard();
+    const card = new Card({
+      name: userCards.name,
+      link: userCards.link,
+      handleCardClick: (name, link) => {
+        const popupWithImg = new PopupWithImage('.img-popup');
+        popupWithImg.open(name, link);
+      }
+    },
+    '#card'
     );
     const cardElement = card.generateCard();
-    cardsList.prepend(cardElement);
+    cards.addItem(cardElement);
   }
 });
 
@@ -54,39 +89,27 @@ btnSendAdd.addEventListener('click', (evt) => {
   popupAddImages.close();
 });
 
-//========== стартовые карточки появляются на странице =========
-const cards = new Section({
-  items: initialCards,
-  renderer: (element) => {
-    const card = new Card(element, '#card');
-    const cardElement = card.generateCard();
-    cards.addItem(cardElement);
-  }},
-  '.elements__list'
-);
-cards.renderItems();
 
 //========== зовём попапы ==========
 btnEdit.addEventListener('click', () => {
-  const popup = new Popup ('.popup-edit');
-  popup.open();
-  btnSendEnabled(btnSendEdit, validationConfig); // включается кнопка при окрытии формы редактирования
-  userInfo.getUserInfo();                        // профиля, после того как закрыли невалидную форму
+  const userInfo = new UserInfo ({
+    name: '.profile__title',
+    info: '.profile__subtitle'
+    },
+    '.profile'
+  );
+  const userData = userInfo.getUserInfo();
+  inputName.value = userData.name;
+  inputDescription.value = userData.info;
+  popupEditProfile.open();
+  btnSendEnabled(btnSendEdit, validationConfig); // включается кнопка при окрытии формы редактирования профиля, после того как закрыли невалидную форму
 });
 
 btnAdd.addEventListener('click', () => {
-  const popup = new Popup ('.popup-add');
-  popup.open();
+  popupAddImages.open();
   btnSendDisabled(btnSendAdd, validationConfig); // отключается кнопка на невалидной форме до начала ввода
 });
 
-//========== попап с картинкой ===========
-
-const popupWithImg = new PopupWithImage('.img-popup');
-
-export function handleOpenPopupImg(name, link) {
-  popupWithImg.open(name, link);
-}
 
 //========== Включение валидации ==========
 const formAdd = new FormValidator(validationConfig, '.form-add');

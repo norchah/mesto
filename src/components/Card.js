@@ -1,12 +1,11 @@
-import {handleOpenPopupImg} from '../pages/index.js';
 
 export default class Card { // используется и для загрузки стартовых карточек, и для пользовательских
-  constructor({name, link}, cardSelector, handleOpenPopupImg) {
+  constructor({name, link, handleCardClick}, cardSelector) {
     this._name = name;
     this._link = link;
     this._alt = name;
     this._cardSelector = cardSelector;
-    this._handleOpenPopupImg = handleOpenPopupImg;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplateCard() {
@@ -22,10 +21,6 @@ export default class Card { // используется и для загрузк
     this._element = this._getTemplateCard();
     const elementImg = this._element.querySelector('.element__img');
 
-    elementImg.addEventListener('click', () => { //передаём данные карточки в попап с картинкой
-      handleOpenPopupImg(this._name, this._link);
-    });
-
     this._element.querySelector('.element__title').textContent = this._name;
     elementImg.src = this._link;
     elementImg.alt = this._alt;
@@ -34,13 +29,17 @@ export default class Card { // используется и для загрузк
     return this._element;
   }
 
+  _openPopupImg(name, link) {
+    this._handleCardClick(name, link);
+  }
+
   _likes(evt) {  // лайки подготовка
     if (evt.target.classList.contains('btn_like')) {
       evt.target.classList.toggle('btn_like_active');
     }
   }
 
-  _deletes(evt) {  // удаление подготовка
+  _delets(evt) {  // удаление подготовка
     if (evt.target.classList.contains('btn_delete')) {
       evt.target.closest('.element').remove();
     }
@@ -51,10 +50,14 @@ export default class Card { // используется и для загрузк
     element.addEventListener('click', (evt) => { // лайки
       this._likes(evt);
     });
-    element.addEventListener('click', (evt) => { // лайки
-      this._deletes(evt);
+
+    element.addEventListener('click', (evt) => { // удаления
+      this._delets(evt);
+    });
+
+    element.addEventListener('click', () => { // открытие попапа картинки
+      this._openPopupImg(this._name, this._link);
     });
 
   }
-
 }

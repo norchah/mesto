@@ -1,41 +1,29 @@
-import {clearBorderError, clearErrorFields} from '../utils/utils.js';
-import {
-  validationConfig,
-  inputNameAdd,
-  inputDescriptionAdd,
-  formInputs,
-  formErrors
-} from '../utils/constants.js';
+
 
 export default class Popup {
   constructor(modal) {
     this._modal = document.querySelector(modal);
+    this._handleEscClose = this._handleEscClose.bind(this);
+    this._handleOverlayClose = this._handleOverlayClose.bind(this);
   }
 
   open() {
     this._modal.classList.add('popup_opened');
-    document.addEventListener('keyup', (evt) => { //esc-детектед
-      this._handleEscClose(evt);
-    });
-    this._modal.addEventListener('click', (evt) => { // закрытие на оверлей
-      if (evt.target === evt.currentTarget) {
-        this.close();
-      }
-    });
-    this._setEventListener();
+    document.addEventListener('keyup', this._handleEscClose);  //esc-детектед
+    this._modal.addEventListener('click', this._handleOverlayClose);
+    this._setEventListeners();
   }
 
   close() {
     this._modal.classList.remove('popup_opened');
-    document.removeEventListener('keyup', (evt) => { // удаление esc-детектед
-      this._handleEscClose(evt);
-    });
-    formInputs.forEach(inputElement => {  // очистка красной границы при закрытии (не сабмит) невалидной формы
-      clearBorderError(inputElement, validationConfig);
-    });
-    formErrors.forEach(clearErrorFields); //очистка полей с текстом ошибок
-    inputNameAdd.value = ''; // очистка полей при закрытии попапа
-    inputDescriptionAdd.value = '';
+    document.removeEventListener('keyup', this._handleEscClose);  // удаление esc-детектед
+    this._modal.removeEventListener('click', this._handleOverlayClose);
+  }
+
+  _handleOverlayClose(evt) { // закрытие на оверлей, вынес в отдельный метод, что б слушатель снять.
+    if (evt.target === evt.currentTarget) {
+      this.close();
+    }
   }
 
   _handleEscClose(evt) {
@@ -44,12 +32,11 @@ export default class Popup {
     }
   }
 
-  _setEventListener() {
+  _setEventListeners() {
     this._modal         //клик на кнопку закрытия и закрытие
     .querySelector('.btn-close')
     .addEventListener('click', () => {
       this.close();
     });
   }
-
 }
