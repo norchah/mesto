@@ -1,5 +1,4 @@
 import {
-  imgPopup,
   imgPopupImage
 } from '../utils/constants.js';
 import Popup from './Popup.js';

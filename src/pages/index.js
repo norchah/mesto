@@ -73,8 +73,13 @@ const popupAddImages = new PopupWithForm({
     },
     '#card'
     );
+
     const cardElement = card.generateCard();
     cards.addItem(cardElement);
+    const btnDel = document.createElement('button');/////////////
+    btnDel.className = 'btn btn_delete';/////////////////////////
+    document.querySelector('.element').append(btnDel);///////////
+    console.log(document.querySelector('.element'));
   }
 });
 

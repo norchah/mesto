@@ -6,6 +6,8 @@ export default class Card { // используется и для загрузк
     this._alt = name;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._element = this._getTemplateCard();
+    this._elementImg = this._element.querySelector('.element__img');
   }
 
   _getTemplateCard() {
@@ -18,12 +20,9 @@ export default class Card { // используется и для загрузк
   }
 
   generateCard() {
-    this._element = this._getTemplateCard();
-    const elementImg = this._element.querySelector('.element__img');
-
     this._element.querySelector('.element__title').textContent = this._name;
-    elementImg.src = this._link;
-    elementImg.alt = this._alt;
+    this._elementImg.src = this._link;
+    this._elementImg.alt = this._alt;
     this._setEventListeners();
 
     return this._element;
@@ -46,16 +45,16 @@ export default class Card { // используется и для загрузк
   }
 
   _setEventListeners() {
-    const element = this._element.querySelector('.element');
-    element.addEventListener('click', (evt) => { // лайки
+    const card = this._element.querySelector('.element');
+    card.addEventListener('click', (evt) => { // лайки
       this._likes(evt);
     });
 
-    element.addEventListener('click', (evt) => { // удаления
+    card.addEventListener('click', (evt) => { // удаления
       this._delets(evt);
     });
 
-    element.addEventListener('click', () => { // открытие попапа картинки
+    this._elementImg.addEventListener('click', () => { // открытие попапа картинки
       this._openPopupImg(this._name, this._link);
     });
 
