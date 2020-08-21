@@ -1,5 +1,4 @@
 import Popup from './Popup.js';
-import {inputName, inputDescription} from '../utils/constants.js';
 
 export default class UserInfo extends Popup {
   constructor({name, info}, modal) {
@@ -15,8 +14,8 @@ export default class UserInfo extends Popup {
     return userInfo;
   }
 
-  setUserInfo() {
-    this._modal.querySelector(this._name).textContent = inputName.value;
-    this._modal.querySelector(this._info).textContent = inputDescription.value;
+  setUserInfo(name, about) {
+    this._modal.querySelector(this._name).textContent = name.value;
+    this._modal.querySelector(this._info).textContent = about.value;
   }
 }

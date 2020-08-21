@@ -55,7 +55,7 @@ const userInfo = new UserInfo ({
 const popupEditProfile = new PopupWithForm({
   modal: '.popup-edit',
   formSubmitHandler: () => {
-    userInfo.setUserInfo();
+    userInfo.setUserInfo(inputName, inputDescription);
   }
 });
 
