@@ -44,16 +44,18 @@ const cards = new Section({
 cards.renderItems();
 
 //========== копии классов ==========
+const userInfo = new UserInfo ({
+  name: '.profile__title',
+  info: '.profile__subtitle'
+  },
+  '.profile'
+);
+
 
 const popupEditProfile = new PopupWithForm({
   modal: '.popup-edit',
   formSubmitHandler: () => {
-    const userNewInfo = new UserInfo ({
-      name: inputName.value,
-      info: inputDescription.value},
-      '.profile'
-    );
-    userNewInfo.setUserInfo();
+    userInfo.setUserInfo();
   }
 });
 
@@ -92,12 +94,6 @@ btnSendAdd.addEventListener('click', (evt) => {
 
 //========== зовём попапы ==========
 btnEdit.addEventListener('click', () => {
-  const userInfo = new UserInfo ({
-    name: '.profile__title',
-    info: '.profile__subtitle'
-    },
-    '.profile'
-  );
   const userData = userInfo.getUserInfo();
   inputName.value = userData.name;
   inputDescription.value = userData.info;
