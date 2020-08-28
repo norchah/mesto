@@ -1,4 +1,4 @@
-
+import { btnSendEditAvatar, btnSendEdit, btnSendAdd } from '../utils/constants.js';
 
 export default class Popup {
   constructor(modal) {
@@ -9,8 +9,14 @@ export default class Popup {
 
   open() {
     this._modal.classList.add('popup_opened');
+    if (this._modal === '.popup-add') {
+      btnSendAdd.textContent = 'Создать';
+    } else {
+      btnSendEdit.textContent = 'Сохранить';
+      btnSendEditAvatar.textContent = 'Сохранить';
+    }
     document.addEventListener('keyup', this._handleEscClose);  //esc-детектед
-    this._modal.addEventListener('click', this._handleOverlayClose);
+    this._modal.addEventListener('click', this._handleOverlayClose); //overlay - детекдед
     this._setEventListeners();
   }
 
@@ -33,7 +39,7 @@ export default class Popup {
   }
 
   _setEventListeners() {
-    this._modal         //клик на кнопку закрытия и закрытие
+    this._modal
     .querySelector('.btn-close')
     .addEventListener('click', () => {
       this.close();

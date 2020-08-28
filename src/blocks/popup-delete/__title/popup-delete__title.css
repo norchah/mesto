@@ -1,0 +1,19 @@
+.popup-delete__title {
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1.21;
+    margin: 0 0 35px;
+  }
+
+@media screen and (max-width: 439px) {
+  .popup-delete__title {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 388px) {
+  .popup-delete__title {
+    margin-bottom: 25px;
+  }
+}
+

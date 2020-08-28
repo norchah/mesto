@@ -1,21 +1,23 @@
 import Popup from './Popup.js';
 
 export default class UserInfo extends Popup {
-  constructor({name, info}, modal) {
+  constructor({name, info, avatar}, modal) {
     super(modal);
-    this._name = name;
-    this._info = info;
+    this._name = this._modal.querySelector(name);
+    this._info = this._modal.querySelector(info);
+    this._avatar = avatar;
   }
 
   getUserInfo() {
     const userInfo = {};
-    userInfo.name = this._modal.querySelector(this._name).textContent;
-    userInfo.info = this._modal.querySelector(this._info).textContent;
+    userInfo.name = this._name.textContent;
+    userInfo.info = this._info.textContent;
     return userInfo;
   }
 
-  setUserInfo(name, about) {
-    this._modal.querySelector(this._name).textContent = name.value;
-    this._modal.querySelector(this._info).textContent = about.value;
+  setUserInfo(items) {
+    this._name.textContent = items.name;
+    this._info.textContent = items.about;
+    this._info.src = items.avatar;
   }
 }

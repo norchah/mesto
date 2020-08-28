@@ -1,0 +1,16 @@
+.popup-delete__btn-send {
+  background-color: black;
+  color: white;
+  width: 100%;
+  height: 50px;
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: normal;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+
+.popup-delete__btn-send:hover {
+  opacity: 0.8;
+}
+

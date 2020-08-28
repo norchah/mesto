@@ -1,0 +1,17 @@
+.popup-edit-avatar__contanier {
+  max-width: 430px;
+  min-height: 272px;
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: white;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 520px) {
+  .popup-edit-avatar__contanier {
+    margin: 0 40px;
+  }
+}
+

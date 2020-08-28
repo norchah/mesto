@@ -1,0 +1,24 @@
+.popup-delete__btn-close {
+  background-image: url('../../../images/btn/_close.svg');
+  background-position: center;
+  background-color: transparent;
+  width: 41px;
+  height: 41px;
+  border: none;
+  position: relative;
+  top: -190px;
+  left: calc(100% + 35px);
+  margin-right: 1px;
+  transition: opacity .2s;
+}
+
+.popup-delete__btn-close:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 505px) {
+  .popup-delete__btn-close {
+    left: calc(100% - 1px);
+  }
+}
