@@ -1,17 +1,15 @@
-import {
-  imgPopupImage
-} from '../utils/constants.js';
-import Popup from './Popup.js';
+import { imgPopupImage } from "../utils/constants.js";
+import Popup from "./Popup.js";
 
 export default class PopupWithImage extends Popup {
   constructor(modal) {
-    super(modal)
+    super(modal);
   }
 
   _createPopupImg(name, link) {
     imgPopupImage.src = link;
     imgPopupImage.alt = name;
-    this._modal.querySelector('.img-popup__img-name').textContent = name;
+    this._modal.querySelector(".img-popup__img-name").textContent = name;
   }
 
   open(name, link) {

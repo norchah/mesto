@@ -1,7 +1,7 @@
-import Popup from './Popup.js';
+import Popup from "./Popup.js";
 
 export default class UserInfo extends Popup {
-  constructor({name, info, avatar}, modal) {
+  constructor({ name, info, avatar }, modal) {
     super(modal);
     this._name = this._modal.querySelector(name);
     this._info = this._modal.querySelector(info);
