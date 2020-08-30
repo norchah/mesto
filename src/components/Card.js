@@ -25,7 +25,6 @@ export default class Card { // используется и для загрузк
     this._myId = '32369f350c9deff0becce90e';
     this._element = this._getTemplateCard();
     this._elementImg = this._element.querySelector('.element__img');
-
   }
 
   _getTemplateCard() {
@@ -33,7 +32,6 @@ export default class Card { // используется и для загрузк
       .querySelector(this._cardSelector)
       .content
       .cloneNode(true);
-
     return newCard;
   }
 
