@@ -1,3 +1,5 @@
+import { myId } from '../utils/constants.js';
+
 export default class Card { // используется и для загрузки стартовых карточек, и для пользовательских
   constructor({
       name,
@@ -7,7 +9,7 @@ export default class Card { // используется и для загрузк
       ownerId,
       handleCardClick,
       handleCardDelete,
-      handleCardLike
+      handleCardLike,
     }, cardSelector)
     {
     this._name = name;
@@ -20,6 +22,7 @@ export default class Card { // используется и для загрузк
     this._handleCardClick = handleCardClick;
     this._handleCardDelete = handleCardDelete;
     this._handleCardLike = handleCardLike;
+    this._myId = '32369f350c9deff0becce90e';
     this._element = this._getTemplateCard();
     this._elementImg = this._element.querySelector('.element__img');
 
@@ -48,15 +51,15 @@ export default class Card { // используется и для загрузк
   }
 
   _isOwnerLike() {
-    this._like.forEach(element => { // если в списке лайков есть наш - пометим
-      if (element._id === '32369f350c9deff0becce90e') {
-        this._element.querySelector('.btn_like').classList.add('btn_like_active');
-      }
-    });
+    const isLiked = this._like.some(element => element._id === this._myId); // Думаю время потраченное на поиск лайков сократится. Спасибо =)
+    console.log(isLiked);
+    if (isLiked) {
+      this._element.querySelector('.btn_like').classList.add('btn_like_active');
+    }
   }
 
   _isOwnerCard () { // если карточка наша, ставим кнопку удаления
-    if (this._ownerId ==='32369f350c9deff0becce90e') {
+    if (this._ownerId === this._myId) {
       const btnDel = document.createElement('button');
       btnDel.className = 'btn btn_delete';
       this._element.querySelector('.element').append(btnDel);

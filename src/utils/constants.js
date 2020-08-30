@@ -1,4 +1,7 @@
 import Api from '../components/Api.js';
+import PopupDelete from '../components/PopupDelete.js';
+
+import { createObjectUserCard } from './utils.js';
 
 export const validationConfig = {
   form: '.form',
@@ -31,17 +34,25 @@ export const formInputs = document.querySelectorAll('.form__input');
 export const formErrors = document.querySelectorAll('.form__input-error');
 
 export const avatar = document.querySelector('.profile__avatar');
+export const myId = '32369f350c9deff0becce90e';
 
-export let userCards = {}; //будущий массив с данными о картинке пользователя
-
-export const apiAddLike = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-14/cards/likes/',
-  method: 'PUT',
-  authorization: '472aece0-2f86-4f21-9fde-a58207ebc3ea'
+export const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-14/',
+  authorization: '472aece0-2f86-4f21-9fde-a58207ebc3ea',
 });
 
-export const apiDelLike = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-14/cards/likes/',
-  method: 'DELETE',
-  authorization: '472aece0-2f86-4f21-9fde-a58207ebc3ea'
+export const popupDelete = new PopupDelete({
+  modal: '.popup-delete',
+  submitHandler: (id, target) => { //колбэк в попап подтверждения
+    btnSendDel.textContent = 'Удаление...';
+    api.deleteCard(id)
+    .then(() => {
+      target.closest('.element').remove();
+
+    })
+    .catch(err => console.log(err))
+    .finally(
+      popupDelete.close()
+      );
+  }
 });

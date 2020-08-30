@@ -14,13 +14,11 @@ export default class Section {
   }
 
   renderItem() {
-    //console.log(this._items);
     this._renderer(this._items);
   }
 
   renderItems() {
     this._items.forEach(item => {
-      //console.log(item);
       this._renderer(item);
     })
   }

@@ -9,12 +9,6 @@ export default class Popup {
 
   open() {
     this._modal.classList.add('popup_opened');
-    if (this._modal === '.popup-add') {
-      btnSendAdd.textContent = 'Создать';
-    } else {
-      btnSendEdit.textContent = 'Сохранить';
-      btnSendEditAvatar.textContent = 'Сохранить';
-    }
     document.addEventListener('keyup', this._handleEscClose);  //esc-детектед
     this._modal.addEventListener('click', this._handleOverlayClose); //overlay - детекдед
     this._setEventListeners();

@@ -3,63 +3,51 @@ export default class Api {
     baseUrl,
     cardsUrl,
     userUrl,
-    method,
     authorization,
-    contentType,
     name,
     about,
-    headers,
-    body,
     id
   })
   {
     this._baseUrl = baseUrl;
     this._cardsUrl = cardsUrl;
     this._userUrl = userUrl;
-    this._method = method;
     this._authorization = authorization;
-    this._contentType = contentType;
     this._name = name;
     this._about = about;
-    this._headers = headers;
-    this._body = body;
     this._id = id;
+    this._renderResult = this._renderResult.bind(this);
+  }
+
+  _renderResult(res) {
+    if (!res.ok) {
+      return Promise.reject(`Всё херня, Антон, давай заново: ${res.status}`);
+    }
+    return res.json();
   }
 
   _getCurrentUser() {
     return fetch(
-      this._userUrl,
+      `${this._baseUrl}users/me`,
       {
-        method: this._method,
+        method: 'GET',
         headers: {
           authorization: this._authorization,
         }
       }
-    ).then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject(`Всё херня, Антон, давай заново: ${res.status}`);
-      }
-    });
+    ).then(this._renderResult);
   }
 
   _getDataCards() {
     return fetch(
-      this._cardsUrl,
+      `${this._baseUrl}cards`,
       {
-        method: this._method,
+        method: 'GET',
         headers: {
           authorization: this._authorization,
         }
       }
-    ).then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject(`Всё херня, Антон, давай заново: ${res.status}`);
-      }
-    });
+    ).then(this._renderResult);
   }
 
   getStartData() {
@@ -68,123 +56,87 @@ export default class Api {
 
   addCard() {
     return fetch(
-      this._baseUrl,
+      `${this._baseUrl}cards`,
       {
-        method: this._method,
+        method: 'POST',
         headers: {
           authorization: this._authorization,
-          'Content-Type': this._contentType
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           name: this._name,
           link: this._about
         })
       }
-    ).then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject(`Всё херня, Антон, давай заново: ${res.status}`);
-      }
-    });
+    ).then(this._renderResult);
   }
 
   deleteCard(id) {
     return fetch(
-      `${this._baseUrl}${id}`,
+      `${this._baseUrl}cards/${id}`,
       {
-        method: this._method,
+        method: 'DELETE',
         headers: {
           authorization: this._authorization,
         }
       }
-    ).then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject(`Всё херня, Антон, давай заново: ${res.status}`);
-      }
-    });
+    ).then(this._renderResult);
   }
 
   changeUserInfo() {
     return fetch(
       this._baseUrl,
       {
-        method: this._method,
+        method: 'PATCH',
         headers: {
           authorization: this._authorization,
-          'Content-Type': this._contentType
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           name: this._name,
           about: this._about
         })
       }
-    ).then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject(`Всё херня, Антон, давай заново: ${res.status}`);
-      }
-    });
+    ).then(this._renderResult);
   }
 
   changeAvatar() {
     return fetch(
       this._baseUrl,
       {
-        method: this._method,
+        method: 'PATCH',
         headers: {
           authorization: this._authorization,
-          'Content-Type': this._contentType
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           avatar: this._about
         })
       }
-    ).then(res => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Всё херня, Антон, давай заново: ${res.status}`);
-      }
-    })
+    ).then(this._renderResult)
   }
 
   like(id) {
     return fetch(
-      `${this._baseUrl}${id}`,
+      `${this._baseUrl}cards/likes/${id}`,
       {
-        method: this._method,
+        method: 'PUT',
         headers: {
           authorization: this._authorization,
         }
       }
-    ).then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject(`Всё херня, Антон, давай заново: ${res.status}`);
-      }
-    });
+    ).then(this._renderResult);
   }
 
   dislike(id) {
     return fetch(
-     `${this._baseUrl}${id}`,
+     `${this._baseUrl}cards/likes/${id}`,
       {
-        method: this._method,
+        method: 'DELETE',
         headers: {
           authorization: this._authorization,
         }
       }
-    ).then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject(`Всё херня, Антон, давай заново: ${res.status}`);
-      }
-    });
+    ).then(this._renderResult);
   }
 }
