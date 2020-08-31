@@ -39,7 +39,7 @@ export default class Api {
     return Promise.all([this._getCurrentUser(), this._getDataCards()]);
   }
 
-  addCard() {
+  addCard(name, link) {
     return fetch(`${this._baseUrl}cards`, {
       method: "POST",
       headers: {
@@ -47,8 +47,8 @@ export default class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: this._name,
-        link: this._about,
+        name: name,
+        link: link,
       }),
     }).then(this._renderResult);
   }
@@ -62,29 +62,29 @@ export default class Api {
     }).then(this._renderResult);
   }
 
-  changeUserInfo() {
-    return fetch(this._baseUrl, {
+  changeUserInfo(name, about) {
+    return fetch(`${this._baseUrl}users/me`, {
       method: "PATCH",
       headers: {
         authorization: this._authorization,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: this._name,
-        about: this._about,
+        name: name,
+        about: about,
       }),
     }).then(this._renderResult);
   }
 
-  changeAvatar() {
-    return fetch(this._baseUrl, {
+  changeAvatar(avatar) {
+    return fetch(`${this._baseUrl}users/me/avatar`, {
       method: "PATCH",
       headers: {
         authorization: this._authorization,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        avatar: this._about,
+        avatar: avatar,
       }),
     }).then(this._renderResult);
   }

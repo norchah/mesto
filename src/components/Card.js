@@ -53,8 +53,7 @@ export default class Card {
   }
 
   _isOwnerLike() {
-    const isLiked = this._like.some((element) => element._id === this._myId); // Думаю время потраченное на поиск лайков сократится. Спасибо =)
-    console.log(isLiked);
+    const isLiked = this._like.some((element) => element._id === this._myId);
     if (isLiked) {
       this._element.querySelector(".btn_like").classList.add("btn_like_active");
     }

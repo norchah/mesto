@@ -59,16 +59,11 @@ api
 
 const popupEditProfile = new PopupWithForm({
   modal: ".popup-edit",
-  formSubmitHandler: (formValues) => {
-    const changeUserInfo = new Api({
-      // запрос на сервер для изменения юзер инфо
-      baseUrl: "https://mesto.nomoreparties.co/v1/cohort-14/users/me",
-      authorization: "472aece0-2f86-4f21-9fde-a58207ebc3ea",
-      name: formValues.name,
-      about: formValues.info,
-    });
-    changeUserInfo
-      .changeUserInfo()
+  formSubmitHandler: (data) => {
+    const name = data.name;
+    const about = data.info;
+    api
+      .changeUserInfo(name, about)
       .then((items) => {
         userInfo.setUserInfo(items);
       })
@@ -84,14 +79,10 @@ const popupEditProfile = new PopupWithForm({
 
 const popupEditAvatar = new PopupWithForm({
   modal: ".popup-edit-avatar",
-  formSubmitHandler: (formValues) => {
-    const changeUserAvatar = new Api({
-      baseUrl: "https://mesto.nomoreparties.co/v1/cohort-14/users/me/avatar",
-      authorization: "472aece0-2f86-4f21-9fde-a58207ebc3ea",
-      about: formValues.avatar,
-    });
-    changeUserAvatar
-      .changeAvatar()
+  formSubmitHandler: (data) => {
+    const avatar = data.avatar;
+    api
+      .changeAvatar(avatar)
       .then((res) => {
         document.querySelector(".profile__avatar").src = res.avatar;
       })
@@ -106,16 +97,10 @@ const popupEditAvatar = new PopupWithForm({
 const popupAddImages = new PopupWithForm({
   modal: ".popup-add",
   formSubmitHandler: (data) => {
-    let userCard = data;
-    const apiNewCard = new Api({
-      // Запрос на добавление новой карточки
-      baseUrl: "https://mesto.nomoreparties.co/v1/cohort-14/",
-      authorization: "472aece0-2f86-4f21-9fde-a58207ebc3ea",
-      name: userCard["name-add"],
-      about: userCard["description-add"],
-    });
-    apiNewCard
-      .addCard()
+    const name = data["name-add"];
+    const link = data["description-add"];
+    api
+      .addCard(name, link)
       .then((items) => {
         const cards = new Section(
           {
