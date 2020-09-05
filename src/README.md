@@ -26,7 +26,7 @@
 - С такими темпами, скоро и комментарии появятся
 
 
-Кстати, [тут](https://norchah.github.io/mesto/dist) можно и нужно посмотреть [работу](https://norchah.github.io/mesto/dist)
+Кстати, [тут](https://norchah.github.io/mesto/dist) можно и нужно посмотреть [работу](https://norchah.github.io/mesto)
 
 ***автор: Харченко Антон!***
 ### Спасибо за внимание
